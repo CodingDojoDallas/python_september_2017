@@ -27,7 +27,6 @@ def clear(request):
 	request.session.pop('words')
 	
 	return redirect("/session_words")
-	pass
 	
 def num_extention(num):
 	num = int(num)

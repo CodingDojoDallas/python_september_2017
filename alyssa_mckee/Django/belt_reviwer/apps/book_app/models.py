@@ -13,7 +13,7 @@ class AuthorManager(models.Manager):
 			errors.append("Author can not be empty")
 		
 		#if new author is not empty and is not alpha (with spaces between)
-		if data['new_author'] != "" and not re.match(r'^[a-zA-Z]+([a-zA-Z ]?[a-zA-Z]+)*$',data['new_author']):
+		if data['new_author'] != "" and not re.match(r'^[a-zA-Z]+( ?[a-zA-Z]+)*$',data['new_author']):
 			errors.append("Author name is not valid. Letters and spaces between words only.")
 		
 		return errors
