@@ -1,0 +1,43 @@
+*{	font-family: sans-serif; }
+
+table{	border: 2px solid black; }
+
+body table thead th{	background: #bbb }
+
+tr:nth-child(2n){	background: white;	}
+
+tr:nth-child(2n-1){	background: #efefef; }
+
+td, th{
+	text-align: left;
+	padding: 3px 5px;
+	border-right: 2px solid black;
+}
+label{
+	margin-top: 20px;
+	display: inline-block;
+	vertical-align: top;
+	width: 100px;
+	text-align: right;
+}
+input, select, textarea{
+	margin-top: 20px;
+	width: 200px;
+}
+button{
+	margin-left: 250px;
+	width: 60px;
+}
+.error{color: red;}
+
+.nav{
+	width: 90%;
+	text-align: right;
+}
+.nav li{
+	list-style: none;
+	display: inline;
+}
+.bold{
+	font-weight: bold;
+}

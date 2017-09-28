@@ -1,0 +1,55 @@
+<!DOCTYPE HTML>
+<html lang="en-US">
+
+<head>
+	<meta charset="UTF-8">
+	<title>{{product.name}}</title>
+	{% load static %}
+	<link rel="stylesheet" href="{% static 'products/styles.css' %}"/>
+</head>
+<body>
+	<ul class="nav">
+		<li><a href="{% url 'store' %}">Store Page</a></li>
+	</ul>
+	<h1>{{product.name}}</h1>
+	{% if messages %}
+		<ul>
+		{% for message in messages %}
+			<li class="error">{{message}}</li>
+		{%endfor%}
+		</ul>
+	{%endif%}
+	<form action="{% url 'products' id=product.id %}" method="POST">
+	{% csrf_token %}
+	<div>
+			<label for="department">Product Type:</label>
+			<select name="department" id="department">
+				<option {% if product.department == "Book" %} selected {%endif%} >Book</option>
+				<option {% if product.department == "DVD" %} selected {%endif%} >DVD</option>
+				<option {% if product.department == "BlueRay" %} selected {%endif%} >BlueRay</option>
+				<option {% if product.department == "Clothing" %} selected {%endif%} >Clothing</option>
+				<option {% if product.department == "Poster" %} selected {%endif%} >Poster</option>
+				<option {% if product.department == "Figurine" %} selected {%endif%} >Figurine</option>
+			</select>
+		</div>
+		<div>
+			<label for="name">Name</label>
+			<input type="text" name="name" id="name" value="{{product.name}}"/>
+		</div>
+		
+		<div>
+			<label for="price">Price ($):</label>
+			<input type="number" name="price" id="price" step="0.01" value="{{product.price}}">
+		</div>
+		<div>
+			<label for="description">Description:</label>
+			<textarea name="description" id="description" cols="30" rows="10">{{product.description}}</textarea>
+		</div>
+		<button type="submit">Update</button>
+	</form>
+	<form action="{% url 'delete'  id=product.id %}" method="POST">{% csrf_token %}
+		<button>Delete</button>
+	</form>
+	
+</body>
+</html>
