@@ -30,14 +30,14 @@ def index(req): #dashboard
 def show(req, id):
 	if not 'user_id' in req.session:
 		return redirect(reverse('landing'))
-	book = Book.objects.filter(id=id)
-	if not book.exists():
+	book = Book.objects.filter(id=id).first()
+	if not book:
 		return redirect(reverse("dashboard"))
 	
 	
 	context = {
-		"book":book[0],
-		"reviews": list(book[0].reviews.all()),
+		"book":book,
+		"reviews": list(book.reviews.all()),
 		
 	}
 	
@@ -76,7 +76,7 @@ def create(req):
 	
 	#create author, book, and review
 	book = Book.objects.create_book(req.POST)
-	
-	review = Review.objects.create_review(req.POST, book)
+	user_id = req.session['user_id']
+	review = Review.objects.create_review(req.POST, book, user_id)
 	
 	return redirect(reverse("dashboard"))

@@ -2,7 +2,20 @@
 <html lang="en-US">
 <head>
 	<meta charset="UTF-8">
-	<title></title>
+	<title>Books</title>
+	<style type="text/css">
+		.loop{display: inline-block}
+	</style>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	<script type="text/javascript">
+		$(document).ready(function(){
+			$(".loop").each(function(i, obj){
+				content = $(this).html();
+				for (var j = 1; j < $(this).attr("times"); j++)
+					$(this).html($(this).html() +" "+ content);
+			})	
+		});
+	</script>
 </head>
 <body>
 	<header>
@@ -22,21 +35,7 @@
 			<h3><a href="{% url 'show_book' id=review.book.id %}">{{review.book.title}}</a></h3>
 			<div class="rating">Rating: {{review.rating}}
 			{% load static %}
-			{% if review.rating > 0 %}
-				<img src="{% static 'review_app/small_star.gif' %}" alt=""/>
-			{%endif%}
-			{% if review.rating > 1 %}
-				<img src="{% static 'review_app/small_star.gif' %}" alt=""/>
-			{%endif%}
-			{% if review.rating > 2 %}
-				<img src="{% static 'review_app/small_star.gif' %}" alt=""/>
-			{%endif%}
-			{% if review.rating > 3 %}
-				<img src="{% static 'review_app/small_star.gif' %}" alt=""/>
-			{%endif%}
-			{% if review.rating > 4 %}
-				<img src="{% static 'review_app/small_star.gif' %}" alt=""/>
-			{%endif%}
+			<div class="loop star" times="{{review.rating}}"><img src="{% static 'review_app/small_star.gif' %}" alt=""/></div>
 			</div>
 			<a href="{% url 'show_user' id=review.user.id %}">{{review.user.alias}}</a> says: {{review.content}}
 			<p>Posted on:{{review.created_at}}</p>

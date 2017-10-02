@@ -7,15 +7,18 @@ class ReviewManager(models.Manager):
 		errors = []
 		if len(data['content']) == 0:
 			errors.append("review can not be empty")
+			
+		if data['rating'] not in [1,2,3,4,5]:
+			errors.append("not a valid rating, nice try")
 		return errors
 
-	def create_review(self, data, book):
+	def create_review(self, data, book, user_id):
 		print(data)
 		return Review.objects.create(
 			content=data['content'],
 			rating=int(data['rating']),
 			book=book,
-			user=User.objects.get(id=data['user_id'])
+			user=User.objects.get(id=user_id)
 		)
 	
 	

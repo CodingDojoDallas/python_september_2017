@@ -9,7 +9,9 @@ def flash_errors(req, errors, tag=""):
 def create(req):
 	if req.method != "POST":
 		return redirect(reverse("dashboard"))
-		
+	
+	user_id = req.session['user_id']
+	
 	errors = Review.objects.validate_review(req.POST)
 	print(errors)		
 	if errors:
@@ -17,7 +19,7 @@ def create(req):
 		print("error")
 		return redirect(reverse("show_book", kwargs={"id":req.POST['book_id']}))
 	book = Book.objects.get(id=req.POST['book_id'])	
-	review = Review.objects.create_review(req.POST, book)
+	review = Review.objects.create_review(req.POST, book, user_id)
 	
 	return redirect(reverse("show_book", kwargs={"id":req.POST['book_id']}))		
 

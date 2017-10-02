@@ -1,0 +1,78 @@
+<!DOCTYPE HTML>
+<html lang="en-US">
+<head>
+	<meta charset="UTF-8">
+	<title>Stuff for Sale</title>
+	{% load static %}
+	<link rel="stylesheet" href="{% static 'products/styles.css' %}"/>
+</head>
+<body>
+	<h1>Traders Store</h1>
+	<h2>Product Listing:</h2>
+	
+	{% if products %}
+		<table>
+			<thead>
+				<tr>
+					<th>Department</th>
+					<th>Product Name</th>
+					<th>Price</th>
+					<th>Date Added</th>
+					<th>Action</th>
+				</tr>
+			</thead>
+			<tbody>
+			{% for product in products %}
+				<tr>
+					<td>{{product.department}}</td>
+					<td><a href="{% url 'products' id=product.id %}">{{product.name}}</a></td>
+					<td>{{product.price}}</td>
+					<td>{{product.created_at}}</td>
+					<td><a href="{% url 'products' id=product.id %}">Edit</a> | <a href="{% url 'delete' id=product.id %}">Delete</a></td>
+				</tr>
+			{%endfor%}
+			</tbody>
+		</table>
+		
+	{% else %}
+		<p>we appologize, there are no products for sale at this time T-T</p>
+	{%endif%}
+	<h2>Add a Product:</h2>
+	{% if messages %}
+		<ul>
+		{% for message in messages %}
+			<li class="error">{{message}}</li>
+		{%endfor%}
+		</ul>
+	{%endif%}
+	<form action="{% url 'store' %}" method="POST">
+		{% csrf_token %}
+		<div>
+			<label for="department">Product Type:</label>
+			<select name="department" id="department">
+				<option value="" hidden selected>Select a type...</option>
+				<option>Book</option>
+				<option>DVD</option>
+				<option>BlueRay</option>
+				<option>Clothing</option>
+				<option>Poster</option>
+				<option>Figurine</option>
+			</select>
+		</div>
+		<div>
+			<label for="name">Name</label>
+			<input type="text" name="name" id="name"/>
+		</div>
+		
+		<div>
+			<label for="price">Price ($):</label>
+			<input type="number" name="price" id="price" step="0.01">
+		</div>
+		<div>
+			<label for="description">Description:</label>
+			<textarea name="description" id="description" cols="30" rows="10"></textarea>
+		</div>
+		<button type="submit">Add</button>
+	</form>
+</body>
+</html>
