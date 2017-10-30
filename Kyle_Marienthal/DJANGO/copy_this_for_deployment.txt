@@ -10,7 +10,7 @@ Follow instructions on Learn to create a new Amazon EC2 instance. Make sure to s
 Create a new repository on GitLab for your project.
 
 Activate your VIRTUAL ENVIRONMENT then navigate to your project folder and make a list of your dependencies
-
+go find the cheater sheet to deploy everything. 
 1-
 pip freeze > requirements.txt
 ***Setup .gitignore file
