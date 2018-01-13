@@ -15,7 +15,7 @@ Including another URLconf
 """
 from django.conf import settings
 from django.conf.urls.static import static
-from django.conf.urls import url
+from django.conf.urls import url, include
 from django.contrib import admin
 
 from profiles import views as profiles_views
@@ -26,7 +26,7 @@ urlpatterns = [
     url(r'^$', profiles_views.home, name='home'),
     url(r'^about/$', profiles_views.about, name='about'),
     url(r'^contact/$', contact_views.contact, name='contact'),
-    # views.home will go to views.py in Profile to look for the method home to return it's result to /home
+    url(r'^accounts/', include('allauth.urls')),
 ]
 
 if settings.DEBUG:
