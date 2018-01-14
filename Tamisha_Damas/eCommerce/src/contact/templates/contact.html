@@ -9,7 +9,8 @@
 <p>{{ confirm_message }}</p>
 {% endif %}
 {% if form %}
-<form method='POST' action=''> {% csrf_token %}
+<form method='POST' action=''>
+  {% csrf_token %}
   {{ form|crispy }}
   <input type='submit' value='submit form' class='btn btn-default'/>
 </form>
